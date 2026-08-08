@@ -5,7 +5,7 @@ import { LoginPage } from './pages/login.page';
 import { InventoryPage } from './pages/inventory.page';
 import { CartPage } from './pages/cart.page';
 import { CheckoutPage } from './pages/checkout.page';
-
+//changed
 const credentials = JSON.parse(
   readFileSync(path.join(__dirname, 'data', 'credentials.json'), 'utf8')
 );
