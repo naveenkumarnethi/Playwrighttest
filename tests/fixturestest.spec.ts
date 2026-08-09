@@ -6,7 +6,7 @@ await expect(loggedInPage).toHaveURL(/inventory/);
 
 console.log(await loggedInPage.title());
 
-const prod = await loggedInPage.locator('.inventory_item_name').nth(1).textContent();
+const prod = await loggedInPage.locator('.inventory_item_name').nth(2).textContent();
 console.log(prod);
 
 });
