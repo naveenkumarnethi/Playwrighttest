@@ -1,0 +1,16 @@
+{
+  "name": "playwrighttest",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "@types/node": "^26.1.2"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "xlsx": "^0.18.5"
+  }
+}

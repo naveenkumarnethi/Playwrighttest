@@ -3,13 +3,13 @@ import { LoginPage } from './pages/login.page';
 import { InventoryPage } from './pages/inventory.page';
 import { CartPage } from './pages/cart.page';
 
-test('add Sauce Labs Bolt T-Shirt, then checkout', async ({ page }) => {
+test.only('add Sauce Labs Bolt T-Shirt, then checkout', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const inventoryPage = new InventoryPage(page);
   const cartPage = new CartPage(page);
 
-  await loginPage.goto();
-  await loginPage.login('standard_user', 'secret_sauce');
+  //await loginPage.goto();
+  //await loginPage.login('standard_user', 'secret_sauce');
 
   await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 
