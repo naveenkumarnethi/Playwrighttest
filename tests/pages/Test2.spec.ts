@@ -1,4 +1,4 @@
-import { Locator, test, Page } from '@playwright/test';
+import { Locator, test, Page, expect } from '@playwright/test';
 
 
 
@@ -70,4 +70,38 @@ test('testing', async ({ page }) => {
         await page.waitForTimeout(4000);
 
     });
+
+    test('testing locators',async ({page}) =>{
+        await page.goto("https://www.saucedemo.com/");
+        //await page.getByPlaceholder('Username').fill("abc");
+        //await page.locator('#user-name').fill("abced");
+        await page.locator('//input[@class="input_error form_input"]').first().fill("abc");
+        await page.waitForTimeout(2000);
+
+        await expect(page.locator('#user-name')).toBeVisible()
+
+    });
+
+    test('access modifier', async () => {
+        class LoginPage{
+            public username: String = "admin"
+
+            public login(){
+            console.log('login');
+            }
+        }
+        class Manager extends LoginPage{
+            approveleave(){
+                console.log("leave approved")
+            }
+
+        }
+        const mane = new Manager();
+        console.log(mane.username);
+        mane.approveleave();
+        mane.approveleave();
+
+
+
+    })
 
