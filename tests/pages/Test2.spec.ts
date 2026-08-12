@@ -20,7 +20,7 @@ test('testing', async ({ page }) => {
     console.log("Total Columns: " + clmcount);
 
     await checkInput(row,page,"Raj");
-   // await checkInput("Man");
+   // await checkInput("Manvas");
 
 
  

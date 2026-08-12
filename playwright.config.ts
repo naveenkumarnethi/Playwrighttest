@@ -16,6 +16,7 @@ export default defineConfig({
       name: 'edge',
       use: {
         browserName: 'chromium',
+        screenshot: 'on',
         //storageState: 'tests/auth.json',
         channel: 'msedge',
         headless: false,
