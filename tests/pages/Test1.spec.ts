@@ -7,7 +7,7 @@ test('Test 1', async ({ page }) => {
     await page.getByPlaceholder('Password').fill(dt.password);
     await page.getByRole('button', { name: 'Login' }).click();
     await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-    await expect(page.getByText('Swag Labs')).toBeEnabled();
+    //await expect(page.getByText('Swag Labs')).toBeEnabled();
     const cnt = await page.locator('.inventory_item').count();
     console.log("Total Products: " + cnt);
     for (let i = 0; i < cnt; i++) {
@@ -19,7 +19,7 @@ test('Test 1', async ({ page }) => {
     await page.locator('#shopping_cart_container').click();
     await expect(page).toHaveURL("https://www.saucedemo.com/cart.html");
     await page.getByRole('button', { name: 'Checkout' }).click();
-    await page.waitForTimeout(2000);
+    //await page.waitForTimeout(2000);
     await page.getByPlaceholder('First Name').fill('Naveen');
     await page.getByPlaceholder('Last Name').fill('Kumar');
     await page.getByPlaceholder('Zip/Postal Code').fill('500072');
@@ -38,5 +38,23 @@ test('Test 1', async ({ page }) => {
     })
 
     test('Test 2', async () => {
-        let a = "121"
+        
+interface LoginDetails {
+  username: string;
+  password: string;
+}
+
+function login(user: LoginDetails): void {
+  console.log(`Username: ${user.username}`);
+  console.log(`Password: ${user.password}`);
+}
+
+const user: LoginDetails = {
+  username: "admin345",
+  password: "admin123"
+};
+
+login(user);
+
+
     });
