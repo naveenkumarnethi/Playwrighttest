@@ -41,7 +41,7 @@ test('testing', async ({ page }) => {
     }
 
 
-    test.only('upload file',async({page})=>{
+    test('upload file',async({page})=>{
         await page.goto('https://testautomationpractice.blogspot.com/');
 
         //const filepath = './test data/sample.pptx';
@@ -104,4 +104,34 @@ test('testing', async ({ page }) => {
 
 
     })
+
+
+    test('promise',async({page})=>{
+        await page.goto('https://playground.bondaracademy.com/pages/iot-dashboard');
+        await page.getByText('Modal & Overlays').click();
+        await page.getByText('Dialog').click();
+
+        await page.addLocatorHandler(page.getByText('Friendly reminder'),async()=>{
+
+            await page.getByRole('button',{name:'ok'}).click();
+        })
+
+        await page.getByRole("button",{name: 'Enter Name'}).click();
+        await page.getByPlaceholder('Name').fill("nav");
+        await page.getByRole('button',{ name: 'Submit'});
+
+
+
+    });
+
+    test.only('api',async({request})=>{
+        const response = await request.get('https://conduit-api.bondaracademy.com/api/tags');
+        expect(response.status()).toBe(200);
+        const responseobj =await response.json();
+        console.log(responseobj);
+        expect(responseobj.tags[0]).toEqual('Test');
+
+    });
+
+
 

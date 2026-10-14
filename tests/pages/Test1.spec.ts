@@ -1,60 +1,81 @@
-import { test,Page, expect } from '@playwright/test';
+import { test, Page, expect } from '@playwright/test';
 import { dt } from '../data/credentials.json';
 
 test('Test 1', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-    await page.getByPlaceholder('Username').fill(dt.username);
-    await page.getByPlaceholder('Password').fill(dt.password);
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-    //await expect(page.getByText('Swag Labs')).toBeEnabled();
-    const cnt = await page.locator('.inventory_item').count();
-    console.log("Total Products: " + cnt);
-    for (let i = 0; i < cnt; i++) {
+  await page.goto('https://www.saucedemo.com/');
+  await page.getByPlaceholder('Username').fill(dt.username);
+  await page.getByPlaceholder('Password').fill(dt.password);
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+  //await expect(page.getByText('Swag Labs')).toBeEnabled();
+  const cnt = await page.locator('.inventory_item').count();
+  console.log("Total Products: " + cnt);
+  for (let i = 0; i < cnt; i++) {
     const productname = await page.locator('.inventory_item_name').nth(i).textContent();
     console.log("Product Name: " + productname);
+  }
+  const prod = page.locator('.inventory_item', { hasText: 'Sauce Labs Backpack' });
+  await prod.locator('button:has-text("Add to cart")').click();
+  await page.locator('#shopping_cart_container').click();
+  await expect(page).toHaveURL("https://www.saucedemo.com/cart.html");
+  await page.getByRole('button', { name: 'Checkout' }).click();
+  //await page.waitForTimeout(2000);
+  await page.getByPlaceholder('First Name').fill('Naveen');
+  await page.getByPlaceholder('Last Name').fill('Kumar');
+  await page.getByPlaceholder('Zip/Postal Code').fill('500072');
+  await page.locator('#continue').click();
+  //await page.waitForTimeout(2000);
+  await expect(page).toHaveURL("https://www.saucedemo.com/checkout-step-two.html");
+  const cardno = await page.locator('[data-test="payment-info-value"]').textContent();
+  console.log("Card Number: " + cardno);
+
+
+
+
+  //await page.locator('.inventory_item_name').nth(0).click();
+  await page.waitForTimeout(2000);
+
+})
+
+test('Test 2', async () => {
+
+  interface LoginDetails {
+    username: string;
+    password: string;
+  }
+
+  function login(user: LoginDetails): void {
+    console.log(`Username: ${user.username}`);
+    console.log(`Password: ${user.password}`);
+  }
+
+  const user: LoginDetails = {
+    username: "admin345",
+    password: "admin123"
+  };
+
+  login(user);
+
+
+});
+
+test.only('Test 3', async ({ page }) => {
+  await page.goto('https://www.saucedemo.com/');
+  await page.locator('#user-name').fill('standard_user');
+  await page.getByPlaceholder('Password').fill('secret_sauce');
+  await page.locator('#login-button').click();
+  await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+  const productname = page.locator('.inventory_item_name');
+  const cnt = await productname.count();
+  console.log("Total Products: " + cnt);
+  for (let i = 0; i < cnt; i++) {
+    const productnames = await productname.nth(i).textContent();
+    console.log("Product Name: " + productnames);
+    if (productnames === 'Sauce Labs Backpack') {
+      await page.locator('.inventory_item_name').nth(i).click();
+      await expect(page).toHaveURL('https://www.saucedemo.com/inventory-item.html?id=4');
     }
-    const prod = page.locator('.inventory_item',{hasText:'Sauce Labs Backpack'});
-    await prod.locator('button:has-text("Add to cart")').click();
-    await page.locator('#shopping_cart_container').click();
-    await expect(page).toHaveURL("https://www.saucedemo.com/cart.html");
-    await page.getByRole('button', { name: 'Checkout' }).click();
-    //await page.waitForTimeout(2000);
-    await page.getByPlaceholder('First Name').fill('Naveen');
-    await page.getByPlaceholder('Last Name').fill('Kumar');
-    await page.getByPlaceholder('Zip/Postal Code').fill('500072');
-    await page.locator('#continue').click();
-    //await page.waitForTimeout(2000);
-    await expect(page).toHaveURL("https://www.saucedemo.com/checkout-step-two.html");
-    const cardno = await page.locator('[data-test="payment-info-value"]').textContent();
-    console.log("Card Number: " + cardno);
 
-    
-
-
-    //await page.locator('.inventory_item_name').nth(0).click();
-    await page.waitForTimeout(2000);
-
-    })
-
-    test('Test 2', async () => {
-        
-interface LoginDetails {
-  username: string;
-  password: string;
-}
-
-function login(user: LoginDetails): void {
-  console.log(`Username: ${user.username}`);
-  console.log(`Password: ${user.password}`);
-}
-
-const user: LoginDetails = {
-  username: "admin345",
-  password: "admin123"
-};
-
-login(user);
-
-
-    });
+  }
+  //await page.getByRole('button', { name: 'Add to cart' }).click();
+});
