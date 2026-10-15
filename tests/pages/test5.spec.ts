@@ -20,10 +20,10 @@ test('app test', async ({ page }) => {
             await product.getByRole('button', { name: 'Add to cart' }).click();
             //await expect(product.locator('button', { hasText: 'Remove' })).toBeVisible();
             await expect(product.getByRole('button', { name: 'Remove' })).toBeVisible();
-                        break;
-                        }
+            break;
+        }
 
-            }
+    }
     await page.locator('.shopping_cart_link').click();
     await expect(page).toHaveURL('https://www.saucedemo.com/cart.html');
     await page.getByRole('button', { name: 'Checkout' }).click();
@@ -39,6 +39,6 @@ test('app test', async ({ page }) => {
 
     const sts = await page.locator('[data-test="complete-header"]').textContent();
     console.log("Status: " + sts);
-    
+
 
 });
