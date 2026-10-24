@@ -38,7 +38,7 @@ test('app test', async ({ page }) => {
     await page.getByRole('button', { name: 'Finish' }).click();
 
     const sts = await page.locator('[data-test="complete-header"]').textContent();
-    console.log("Status: " + sts);
+    console.log("Status- " + sts);
 
 
 });
